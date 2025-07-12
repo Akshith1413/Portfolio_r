@@ -296,7 +296,8 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 1 }}
         >
-          Building immersive digital experiences with cutting-edge technologies
+          A passionate developer with a love for creating innovative solutions and exploring the world of technology.
+          Join me on this journey of discovery and creativity!
         </motion.p>
 
         {/* Animated Scroll Indicator */}
