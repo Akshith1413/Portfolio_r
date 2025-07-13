@@ -419,7 +419,7 @@ const Projects = () => {
         "Energy usage tracking",
         "Voice command integration"
       ],
-      image: "/public/icons/smarthome.png",
+      image: "/icons/smarthome.png",
       liveUrl: "#",
       codeUrl: "#"
     },
@@ -437,7 +437,7 @@ const Projects = () => {
         "Order tracking",
         "Admin dashboard"
       ],
-      image: "/public/icons/eccommerce.png",
+      image: "/icons/eccommerce.png",
       liveUrl: "#",
       codeUrl: "#"
     },
@@ -455,7 +455,7 @@ const Projects = () => {
         "Geofencing",
         "Predictive maintenance"
       ],
-      image: "/public/icons/embeddedvehcile.png",
+      image: "/icons/embeddedvehcile.png",
       liveUrl: "#",
       codeUrl: "#"
     },
@@ -491,7 +491,7 @@ const Projects = () => {
         "Storybook docs",
         "Responsive"
       ],
-      image: "/public/icons/ui component.png",
+      image: "/icons/ui component.png",
       liveUrl: "#",
       codeUrl: "#"
     },
@@ -509,7 +509,7 @@ const Projects = () => {
         "Dashboard visualization",
         "ML integration"
       ],
-      image: "/public/icons/industrial.png",
+      image: "/icons/industrial.png",
       liveUrl: "#",
       codeUrl: "#"
     },
@@ -527,7 +527,7 @@ const Projects = () => {
         "Audit trails",
         "Immutable records"
       ],
-      image: "/public/icons/blockchain.png",
+      image: "/icons/blockchain.png",
       liveUrl: "#",
       codeUrl: "#"
     },
@@ -545,7 +545,7 @@ const Projects = () => {
         "Social sharing",
         "Cross-platform"
       ],
-      image: "/public/icons/ar.png",
+      image: "/icons/ar.png",
       liveUrl: "#",
       codeUrl: "#"
     }
