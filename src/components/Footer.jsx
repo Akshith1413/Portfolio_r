@@ -2,14 +2,13 @@
 import { motion } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from 'react-icons/fa';
 import { SiCodepen } from 'react-icons/si';
+import { React } from 'react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const socialLinks = [
-    { icon: <FaGithub />, url: 'https://github.com/yourusername' },
-    { icon: <FaLinkedin />, url: 'https://linkedin.com/in/yourprofile' },
-    { icon: <FaTwitter />, url: 'https://twitter.com/yourhandle' },
-    { icon: <SiCodepen />, url: 'https://codepen.io/yourprofile' },
+    { icon: <FaGithub />, url: 'https://github.com/Akshith1413' },
+    { icon: <FaLinkedin />, url: 'https://www.linkedin.com/in/ravula-akshith-94278b300/' },
     { icon: <FaEnvelope />, url: 'mailto:your.email@example.com' }
   ];
 
@@ -108,10 +107,10 @@ const Footer = () => {
           className="mt-16 pt-8 border-t border-gray-800 text-center text-gray-500 text-sm"
         >
           <p>
-            &copy; {currentYear} Your Name. All rights reserved.
+            &copy; {currentYear} Ravula Akshith. All rights reserved.
           </p>
           <p className="mt-2">
-            Built with React, GSAP, Framer Motion and Tailwind CSS
+            Built by Ravula Akshith with <span className="text-red-500">♥</span> using Vite React.
           </p>
         </motion.div>
       </div>

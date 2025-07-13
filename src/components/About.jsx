@@ -113,6 +113,7 @@ const About = () => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [activeTab, setActiveTab] = useState('education');
 
   // Check for mobile/small screens
   useEffect(() => {
@@ -126,7 +127,7 @@ const About = () => {
     return () => window.removeEventListener('resize', checkIfMobile);
   }, []);
 
-  // Intersection Observer (unchanged)
+  // Intersection Observer
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -144,7 +145,7 @@ const About = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Mouse move effect (unchanged)
+  // Mouse move effect
   useEffect(() => {
     const handleMouseMove = (e) => {
       setMousePos({
@@ -157,6 +158,74 @@ const About = () => {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
+  const renderContent = () => {
+    switch (activeTab) {
+      case 'education':
+        return (
+          <div className="space-y-6">
+            <div className="p-6 rounded-xl bg-gradient-to-br from-blue-900/30 to-indigo-900/30 border border-cyan-300/20">
+              <h3 className="text-xl font-bold text-cyan-200 mb-2">Amrita Vishwa Vidyapeetham</h3>
+              <p className="text-white/90">B.Tech (Computer Science)</p>
+              <p className="text-sm text-cyan-100/80 mt-2">2023 - 2027 (Ongoing)</p>
+            </div>
+            <div className="p-6 rounded-xl bg-gradient-to-br from-purple-900/30 to-pink-900/30 border border-pink-300/20">
+              <h3 className="text-xl font-bold text-pink-200 mb-2">Alphores, Telangana</h3>
+              <p className="text-white/90">Class 12</p>
+              <p className="text-sm text-pink-100/80 mt-2">2021 - 2023</p>
+            </div>
+          </div>
+        );
+      case 'experience':
+        return (
+          <div className="space-y-6">
+            <div className="p-6 rounded-xl bg-gradient-to-br from-emerald-900/30 to-teal-900/30 border border-emerald-300/20">
+              <h3 className="text-xl font-bold text-emerald-200 mb-2">Intel IoT Club</h3>
+              <p className="text-white/90">Full Stack Developer</p>
+              <p className="text-sm text-emerald-100/80 mt-2">Dec 2024 - Present · 8 mos</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <span className="px-2 py-1 text-xs rounded-full bg-emerald-900/50 text-emerald-100">MERN Stack</span>
+                <span className="px-2 py-1 text-xs rounded-full bg-emerald-900/50 text-emerald-100">Front-End</span>
+                <span className="px-2 py-1 text-xs rounded-full bg-emerald-900/50 text-emerald-100">UI/UX</span>
+              </div>
+            </div>
+            <div className="p-6 rounded-xl bg-gradient-to-br from-amber-900/30 to-orange-900/30 border border-amber-300/20">
+              <h3 className="text-xl font-bold text-amber-200 mb-2">Learnflu</h3>
+              <p className="text-white/90">Web Development Intern</p>
+              <p className="text-sm text-amber-100/80 mt-2">May 2024 - Jul 2024 · 3 mos</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <span className="px-2 py-1 text-xs rounded-full bg-amber-900/50 text-amber-100">UX Design</span>
+                <span className="px-2 py-1 text-xs rounded-full bg-amber-900/50 text-amber-100">UI Design</span>
+                <span className="px-2 py-1 text-xs rounded-full bg-amber-900/50 text-amber-100">Web Dev</span>
+              </div>
+            </div>
+          </div>
+        );
+      case 'hobbies':
+        return (
+          <div className="grid grid-cols-2 gap-4">
+            {[
+              { name: 'Coding', icon: '💻', color: 'from-blue-900/30 to-blue-700/30' },
+              { name: 'Photography', icon: '📷', color: 'from-purple-900/30 to-purple-700/30' },
+              { name: 'Music', icon: '🎵', color: 'from-pink-900/30 to-pink-700/30' },
+              { name: 'Travel', icon: '✈️', color: 'from-amber-900/30 to-amber-700/30' },
+              { name: 'Reading', icon: '📚', color: 'from-emerald-900/30 to-emerald-700/30' },
+              { name: 'Gaming', icon: '🎮', color: 'from-red-900/30 to-red-700/30' },
+            ].map((hobby, index) => (
+              <div 
+                key={index}
+                className={`p-4 rounded-xl bg-gradient-to-br ${hobby.color} border border-white/10 flex flex-col items-center justify-center hover:scale-105 transition-transform`}
+              >
+                <span className="text-2xl mb-2">{hobby.icon}</span>
+                <p className="text-white/90 text-sm">{hobby.name}</p>
+              </div>
+            ))}
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <section 
       ref={sectionRef}
@@ -167,7 +236,7 @@ const About = () => {
         backgroundColor: '#0f172a'
       }}
     >
-      {/* 3D Background (unchanged) */}
+      {/* 3D Background */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <Canvas camera={{ position: [0, 0, 4], fov: 55 }}>
           <ambientLight intensity={0.9} />
@@ -209,7 +278,7 @@ const About = () => {
                 <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
                   <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center">
                     <img 
-                      src="../assets/profile.jpg" 
+                      src="/profile.jpg" 
                       alt="Ravula Akshith Profile"
                       className="absolute inset-0 w-full h-full object-cover"
                       style={{
@@ -259,37 +328,36 @@ const About = () => {
                 transitionDelay: '0.6s'
               }}
             >
-              I'm a passionate Full Stack Developer and UI/UX Engineer creating immersive digital experiences.
+              I'm a passionate Full Stack Developer and UI/UX Engineer with a knack for creating immersive digital experiences. My journey in technology combines technical expertise with creative problem-solving, allowing me to build solutions that are both functional and visually stunning. When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects, or capturing moments through my lens.
             </p>
 
-            <div
-              className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8 transition-all duration-800"
-              style={{
-                opacity: isVisible ? 1 : 0,
-                transitionDelay: '0.8s'
-              }}
-            >
-              {[
-                { label: 'Name', value: 'Ravula Akshith' },
-                { label: 'Email', value: 'akshith@example.com' },
-                { label: 'From', value: 'San Francisco, CA' },
-                { label: 'Freelance', value: 'Available' }
-              ].map((item, index) => (
-                <div
-                  key={index}
-                  className="p-3 rounded-lg transition-all duration-500 hover:transform hover:-translate-y-1 hover:border-cyan-300/30"
-                  style={{
-                    background: 'rgba(30, 41, 59, 0.4)',
-                    border: '1px solid rgba(125, 211, 252, 0.1)',
-                    transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
-                    opacity: isVisible ? 1 : 0,
-                    transitionDelay: `${0.9 + index * 0.1}s`
-                  }}
-                >
-                  <h4 className="text-xs text-cyan-300 font-mono">{item.label}</h4>
-                  <p className="text-white font-medium text-base mt-1">{item.value}</p>
-                </div>
-              ))}
+            {/* Interactive Tabs */}
+            <div className="mt-8">
+              <div className="flex space-x-2 mb-6">
+                {['education', 'experience', 'hobbies'].map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => setActiveTab(tab)}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                      activeTab === tab
+                        ? 'bg-cyan-600/30 text-cyan-100 border border-cyan-400/30'
+                        : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50'
+                    }`}
+                  >
+                    {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                  </button>
+                ))}
+              </div>
+
+              <div
+                className="transition-all duration-500"
+                style={{
+                  opacity: isVisible ? 1 : 0,
+                  transitionDelay: '0.8s'
+                }}
+              >
+                {renderContent()}
+              </div>
             </div>
           </div>
         </div>

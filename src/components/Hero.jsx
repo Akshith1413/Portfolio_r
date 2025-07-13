@@ -1,9 +1,9 @@
 import { useRef, useEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Torus, Sphere, RoundedBox, Text3D, Cone, Ring, TorusKnot } from '@react-three/drei';
+import { OrbitControls, Torus, Sphere, RoundedBox, Cone, Ring, TorusKnot } from '@react-three/drei';
 import * as THREE from 'three';
 
 // Register GSAP plugins
@@ -18,6 +18,54 @@ const FloatingShapes = () => {
   const ringRef = useRef();
   const knotRef = useRef();
   const [hoveredShape, setHoveredShape] = useState(null);
+  const [initialPositions] = useState({
+    torus: { x: -10, y: 2, z: -5 },
+    sphere: { x: 10, y: -1, z: -7 },
+    box: { x: -8, y: 3, z: -10 },
+    cone: { x: 12, y: 0, z: -8 },
+    ring: { x: -12, y: -2, z: -6 },
+    knot: { x: 8, y: -3, z: -12 }
+  });
+
+  // Initialize shape positions
+  useEffect(() => {
+    // Animate shapes from their initial positions to final positions
+    gsap.to(torusRef.current.position, {
+      x: -4,
+      duration: 2,
+      ease: "elastic.out(1, 0.5)"
+    });
+    gsap.to(sphereRef.current.position, {
+      x: 3,
+      duration: 2,
+      delay: 0.2,
+      ease: "elastic.out(1, 0.5)"
+    });
+    gsap.to(boxRef.current.position, {
+      x: 0,
+      duration: 2,
+      delay: 0.4,
+      ease: "elastic.out(1, 0.5)"
+    });
+    gsap.to(coneRef.current.position, {
+      x: 5,
+      duration: 2,
+      delay: 0.6,
+      ease: "elastic.out(1, 0.5)"
+    });
+    gsap.to(ringRef.current.position, {
+      x: -5,
+      duration: 2,
+      delay: 0.8,
+      ease: "elastic.out(1, 0.5)"
+    });
+    gsap.to(knotRef.current.position, {
+      x: 0,
+      duration: 2,
+      delay: 1,
+      ease: "elastic.out(1, 0.5)"
+    });
+  }, []);
 
   useFrame(({ clock }) => {
     const time = clock.getElapsedTime();
@@ -95,7 +143,7 @@ const FloatingShapes = () => {
       <Torus
         ref={torusRef}
         args={[1.2, 0.4, 16, 32]}
-        position={[-4, 2, -5]}
+        position={[initialPositions.torus.x, initialPositions.torus.y, initialPositions.torus.z]}
         rotation={[Math.PI / 3, Math.PI / 3, 0]}
         onPointerOver={() => handleShapeHover('torus')}
         onPointerOut={handleShapeLeave}
@@ -112,7 +160,7 @@ const FloatingShapes = () => {
       <Sphere
         ref={sphereRef}
         args={[1.5, 32, 32]}
-        position={[3, -1, -7]}
+        position={[initialPositions.sphere.x, initialPositions.sphere.y, initialPositions.sphere.z]}
         onPointerOver={() => handleShapeHover('sphere')}
         onPointerOut={handleShapeLeave}
       >
@@ -131,7 +179,7 @@ const FloatingShapes = () => {
         args={[2, 2, 2]}
         radius={0.2}
         smoothness={10}
-        position={[0, 3, -10]}
+        position={[initialPositions.box.x, initialPositions.box.y, initialPositions.box.z]}
         onPointerOver={() => handleShapeHover('box')}
         onPointerOut={handleShapeLeave}
       >
@@ -147,7 +195,7 @@ const FloatingShapes = () => {
       <Cone
         ref={coneRef}
         args={[1, 2, 32]}
-        position={[5, 0, -8]}
+        position={[initialPositions.cone.x, initialPositions.cone.y, initialPositions.cone.z]}
         rotation={[Math.PI / 4, 0, Math.PI / 4]}
         onPointerOver={() => handleShapeHover('cone')}
         onPointerOut={handleShapeLeave}
@@ -163,7 +211,7 @@ const FloatingShapes = () => {
       <Ring
         ref={ringRef}
         args={[1, 1.5, 32]}
-        position={[-5, -2, -6]}
+        position={[initialPositions.ring.x, initialPositions.ring.y, initialPositions.ring.z]}
         rotation={[Math.PI / 2, 0, 0]}
         onPointerOver={() => handleShapeHover('ring')}
         onPointerOut={handleShapeLeave}
@@ -179,7 +227,7 @@ const FloatingShapes = () => {
       <TorusKnot
         ref={knotRef}
         args={[1, 0.4, 128, 32]}
-        position={[0, -3, -12]}
+        position={[initialPositions.knot.x, initialPositions.knot.y, initialPositions.knot.z]}
         onPointerOver={() => handleShapeHover('knot')}
         onPointerOut={handleShapeLeave}
       >
@@ -189,24 +237,83 @@ const FloatingShapes = () => {
           roughness={0.2}
         />
       </TorusKnot>
-
-      {/* 3D Name Text - Using built-in font */}
-      <Text3D
-        font="/fonts/helvetiker_regular.typeface.json"
-        size={1.5}
-        height={0.2}
-        curveSegments={12}
-        position={[0, -2, -2]}
-        rotation={[0, Math.PI / 8, 0]}
-      >
-        Ravula Akshith
-        <meshStandardMaterial 
-          color="#ffffff" 
-          emissive="#06b6d4" 
-          emissiveIntensity={0.5} 
-        />
-      </Text3D>
     </>
+  );
+};
+
+// Animated Text Component
+const AnimatedText = ({ text, delay = 0 }) => {
+  const letters = Array.from(text);
+  
+  const container = {
+    hidden: { opacity: 0 },
+    visible: (i = 1) => ({
+      opacity: 1,
+      transition: { staggerChildren: 0.03, delayChildren: 0.04 * i + delay },
+    }),
+  };
+
+  const child = {
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        damping: 12,
+        stiffness: 100,
+      },
+    },
+    hidden: {
+      opacity: 0,
+      y: 20,
+      transition: {
+        type: "spring",
+        damping: 12,
+        stiffness: 100,
+      },
+    },
+  };
+
+  return (
+    <motion.div
+      style={{ display: "flex", overflow: "hidden" }}
+      variants={container}
+      initial="hidden"
+      animate="visible"
+    >
+      {letters.map((letter, index) => (
+        <motion.span variants={child} key={index}>
+          {letter === " " ? "\u00A0" : letter}
+        </motion.span>
+      ))}
+    </motion.div>
+  );
+};
+
+// Skill Tag Component
+const SkillTag = ({ children }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  
+  return (
+    <motion.div
+      className="px-4 py-2 rounded-full text-sm font-medium cursor-default"
+      style={{
+        background: isHovered 
+          ? "linear-gradient(90deg, #3b82f6, #8b5cf6)" 
+          : "rgba(255, 255, 255, 0.1)",
+        color: isHovered ? "white" : "#e2e8f0",
+        border: isHovered ? "none" : "1px solid rgba(255, 255, 255, 0.2)",
+      }}
+      whileHover={{ 
+        scale: 1.1,
+        y: -3,
+        transition: { duration: 0.2 }
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {children}
+    </motion.div>
   );
 };
 
@@ -216,6 +323,14 @@ const Hero = () => {
   const titleRef = useRef();
   const subtitleRef = useRef();
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [currentWord, setCurrentWord] = useState(0);
+  
+  const words = ["Developer", "Designer", "Engineer", "Creator"];
+  const skills = [
+    "Full Stack", "React", "Node.js", "MongoDB", 
+    "Flutter", "Android", "IoT", "Embedded",
+    "UI/UX", "C/C++", "Java", "Python"
+  ];
 
   // Handle mouse movement for parallax effect
   useEffect(() => {
@@ -227,6 +342,14 @@ const Hero = () => {
     };
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  // Word rotation effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentWord((prev) => (prev + 1) % words.length);
+    }, 3000);
+    return () => clearInterval(interval);
   }, []);
 
   // GSAP Animations
@@ -265,6 +388,7 @@ const Hero = () => {
     <section 
       ref={heroRef}
       className="relative h-screen w-full overflow-hidden bg-gradient-to-br from-gray-900 via-purple-900 to-violet-800"
+      id="home"
     >
       {/* 3D Canvas */}
       <div className="absolute inset-0 z-0">
@@ -279,9 +403,20 @@ const Hero = () => {
 
       {/* Content */}
       <div className="relative z-10 h-full flex flex-col items-center justify-center px-4 text-center">
+        {/* Hello I'm text */}
+        <motion.div 
+          className="text-2xl md:text-3xl font-light text-gray-300 mb-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.8 }}
+        >
+          <AnimatedText text="Hello, I'm" delay={0.2} />
+        </motion.div>
+
+        {/* Main Name */}
         <h1 
           ref={titleRef}
-          className="text-6xl md:text-8xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-500 mb-6"
+          className="text-6xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-500 mb-2"
           style={{
             transform: `translate(${mousePos.x * 20}px, ${mousePos.y * 10}px)`,
           }}
@@ -289,20 +424,66 @@ const Hero = () => {
           Ravula Akshith
         </h1>
 
+        {/* Rotating Word - Increased height to prevent cutting */}
+        <div className="h-20 md:h-24 overflow-hidden relative mb-6 flex items-center justify-center">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentWord}
+              className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500"
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -50, opacity: 0 }}
+              transition={{ duration: 0.5 }}
+              style={{ lineHeight: '1.2' }}
+            >
+              {words[currentWord]}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Subtitle */}
         <motion.p
           ref={subtitleRef}
-          className="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto mb-12"
+          className="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 1 }}
         >
-          A passionate developer with a love for creating innovative solutions and exploring the world of technology.
-          Join me on this journey of discovery and creativity!
+          Crafting digital experiences that blend innovation with functionality
         </motion.p>
+
+        {/* Skills Tags */}
+        <motion.div 
+          className="flex flex-wrap justify-center gap-3 max-w-2xl mx-auto mb-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8, duration: 0.8 }}
+        >
+          {skills.map((skill, index) => (
+            <SkillTag key={index}>{skill}</SkillTag>
+          ))}
+        </motion.div>
+
+        {/* Hire Me Button */}
+        <motion.a
+          href="#contact"
+          className="relative px-8 py-3 rounded-full font-medium overflow-hidden group"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1, duration: 0.5 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <span className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-600 opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-full"></span>
+          <span className="absolute inset-0.5 bg-gray-900 rounded-full"></span>
+          <span className="relative z-10 text-white group-hover:text-white transition-colors duration-300">
+            Hire Me
+          </span>
+        </motion.a>
 
         {/* Animated Scroll Indicator */}
         <motion.div 
-          className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
+          className="absolute bottom-5 left-1/2 transform -translate-x-1/2"
           animate={{ y: [0, 15, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
