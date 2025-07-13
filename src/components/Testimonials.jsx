@@ -19,7 +19,7 @@ const testimonialsData = [
     role: "Product Lead, DesignHub",
     content: "The UI/UX work delivered exceeded all expectations. Our conversion rates improved dramatically thanks to their intuitive design solutions.",
     rating: 5,
-    image: "/public/icons/sarah.jpg",
+    image: "/icons/sarah.jpg",
     color: "from-purple-400 to-fuchsia-500",
     pattern: "floating-cogs",
     tech: ["Figma", "CSS3", "GSAP"]

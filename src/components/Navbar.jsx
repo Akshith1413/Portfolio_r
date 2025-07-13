@@ -23,7 +23,7 @@ const Navbar = ({ activeSection, onNavigate }) => {
     { id: 'timeline', label: 'Journey', type: 'section' },
     { id: 'testimonials', label: 'Testimonials', type: 'section' },
     { id: 'contact', label: 'Contact', type: 'section' },
-    { id: 'resume', label: 'Resume', type: 'route' }
+    // { id: 'resume', label: 'Resume', type: 'route' }
   ];
 
   return (
