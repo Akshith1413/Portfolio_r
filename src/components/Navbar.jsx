@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import Logo from '../assets/Logo_tran.png';
 const Navbar = ({ activeSection, onNavigate }) => {
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate(); // ✅ Correct placement
@@ -38,14 +38,14 @@ const Navbar = ({ activeSection, onNavigate }) => {
       <div className="container mx-auto px-6 flex justify-between items-center">
         <motion.a
           href="#home"
-          className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-500"
+          className="flex items-center"
           whileHover={{ scale: 1.05 }}
           onClick={(e) => {
             e.preventDefault();
             onNavigate('home');
           }}
         >
-          PORTFOLIO
+           <img src={Logo} alt="Logo" className="h-14 w-auto" />
         </motion.a>
 
         <div className="hidden md:flex space-x-8">
