@@ -209,7 +209,7 @@ const About = () => {
                 <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
                   <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center">
                     <img 
-                      src="/public/profile.jpg" 
+                      src="../public/profile.jpg" 
                       alt="Ravula Akshith Profile"
                       className="absolute inset-0 w-full h-full object-cover"
                       style={{
