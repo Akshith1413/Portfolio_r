@@ -473,7 +473,7 @@ const Projects = () => {
         "Health insights",
         "Cross-platform"
       ],
-      image: "/public/icons/health.png",
+      image: "/icons/health.png",
       liveUrl: "#",
       codeUrl: "#"
     },
