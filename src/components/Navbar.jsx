@@ -1,11 +1,14 @@
 // src/components/Navbar.jsx
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Logo from '../assets/Logo_tran.png';
+
 const Navbar = ({ activeSection, onNavigate }) => {
   const [scrolled, setScrolled] = useState(false);
-  const navigate = useNavigate(); // ✅ Correct placement
+  const [hoveredItem, setHoveredItem] = useState(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,72 +26,263 @@ const Navbar = ({ activeSection, onNavigate }) => {
     { id: 'timeline', label: 'Journey', type: 'section' },
     { id: 'testimonials', label: 'Testimonials', type: 'section' },
     { id: 'contact', label: 'Contact', type: 'section' },
-    // { id: 'resume', label: 'Resume', type: 'route' }
+    { id: 'resume', label: 'Resume', type: 'route' }
   ];
+
+  const handleNavigation = (item) => {
+    if (item.type === 'route') {
+      navigate(`/${item.id}`);
+    } else {
+      onNavigate(item.id);
+    }
+    setMobileMenuOpen(false);
+  };
 
   return (
     <motion.nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'py-2 bg-gray-900/90 backdrop-blur-md shadow-lg' : 'py-4 bg-transparent'
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled 
+          ? 'py-2 bg-gray-900/95 backdrop-blur-lg shadow-2xl border-b border-gray-800/50' 
+          : 'py-4 bg-transparent'
       }`}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5, delay: 1.5 }}
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.7, delay: 1.5, ease: "easeOut" }}
     >
-      <div className="container mx-auto px-6 flex justify-between items-center">
+      <div className="container mx-auto px-4 sm:px-6 flex justify-between items-center">
+        {/* Logo */}
         <motion.a
           href="#home"
-          className="flex items-center"
+          className="flex items-center relative z-10"
           whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           onClick={(e) => {
             e.preventDefault();
             onNavigate('home');
+            setMobileMenuOpen(false);
           }}
         >
-           <img src={Logo} alt="Logo" className="h-14 w-auto" />
+          <motion.img 
+            src={Logo} 
+            alt="Logo" 
+            className="h-12 sm:h-14 w-auto"
+            whileHover={{ 
+              filter: "brightness(1.2) drop-shadow(0 0 10px rgba(6, 182, 212, 0.3))"
+            }}
+            transition={{ duration: 0.3 }}
+          />
         </motion.a>
 
-        <div className="hidden md:flex space-x-8">
-          {navItems.map((item) => (
-            <motion.a
-              key={item.id}
-              href={item.type === 'route' ? `/${item.id}` : `#${item.id}`}
-              className={`relative px-2 py-1 text-sm font-medium transition-colors ${
-                activeSection === item.id && item.type === 'section'
-                  ? 'text-cyan-400'
-                  : 'text-gray-300 hover:text-white'
-              }`}
-              onClick={(e) => {
-                e.preventDefault();
-                if (item.type === 'route') {
-                  navigate(`/${item.id}`);
-                } else {
-                  onNavigate(item.id);
-                }
-              }}
-              whileHover={{ scale: 1.1 }}
-            >
-              {item.label}
-              {activeSection === item.id && item.type === 'section' && (
-                <motion.span
-                  className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400"
-                  layoutId="navUnderline"
-                  transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
-                />
-              )}
-            </motion.a>
-          ))}
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex space-x-2 relative">
+          {navItems.map((item, index) => {
+            const isActive = activeSection === item.id && item.type === 'section';
+            const isHovered = hoveredItem === item.id;
+            
+            return (
+              <motion.div
+                key={item.id}
+                className="relative"
+                onMouseEnter={() => setHoveredItem(item.id)}
+                onMouseLeave={() => setHoveredItem(null)}
+              >
+                <motion.a
+                  href={item.type === 'route' ? `/${item.id}` : `#${item.id}`}
+                  className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 block ${
+                    isActive
+                      ? 'text-cyan-300 bg-cyan-500/10'
+                      : isHovered
+                      ? 'text-white bg-gray-800/50'
+                      : 'text-gray-300 hover:text-white'
+                  }`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavigation(item);
+                  }}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ 
+                    duration: 0.5, 
+                    delay: 1.7 + (index * 0.1),
+                    ease: "easeOut"
+                  }}
+                  whileHover={{ 
+                    y: -2,
+                    transition: { duration: 0.2 }
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <span className="relative z-10">{item.label}</span>
+                  
+                  {/* Active indicator - glowing underline */}
+                  {isActive && (
+                    <motion.div
+                      className="absolute bottom-0 left-1/2 w-8 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full shadow-lg shadow-cyan-400/50"
+                      layoutId="activeIndicator"
+                      initial={{ opacity: 0, scale: 0, x: "-50%" }}
+                      animate={{ opacity: 1, scale: 1, x: "-50%" }}
+                      exit={{ opacity: 0, scale: 0 }}
+                      transition={{ 
+                        type: "spring", 
+                        bounce: 0.3, 
+                        duration: 0.6 
+                      }}
+                    />
+                  )}
+                  
+                  {/* Hover effect - subtle glow */}
+                  {isHovered && !isActive && (
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-gray-700/20 to-gray-600/20 rounded-lg border border-gray-600/20"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.8 }}
+                      transition={{ duration: 0.2 }}
+                    />
+                  )}
+                  
+                  {/* Background glow for active item */}
+                  {isActive && (
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 to-blue-500/5 rounded-lg border border-cyan-500/20"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  )}
+                </motion.a>
+              </motion.div>
+            );
+          })}
         </div>
 
+        {/* Mobile Menu Button */}
         <motion.button
-          className="md:hidden text-gray-300 focus:outline-none"
+          className="md:hidden text-gray-300 focus:outline-none p-2 rounded-lg hover:bg-gray-800/50 transition-colors"
           whileTap={{ scale: 0.9 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 1.8 }}
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle menu"
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
+          {mobileMenuOpen ? (
+            <motion.svg 
+              className="w-6 h-6" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+              initial={{ rotate: 0 }}
+              animate={{ rotate: 180 }}
+              transition={{ duration: 0.3 }}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </motion.svg>
+          ) : (
+            <motion.svg 
+              className="w-6 h-6" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+              whileHover={{ scale: 1.1 }}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </motion.svg>
+          )}
         </motion.button>
+
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              className="md:hidden fixed inset-0 bg-gray-900/95 backdrop-blur-lg z-40 pt-20 px-6"
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -50 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+            >
+              <motion.ul 
+                className="flex flex-col space-y-4"
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: {
+                    opacity: 1,
+                    transition: {
+                      staggerChildren: 0.1,
+                      delayChildren: 0.2
+                    }
+                  }
+                }}
+              >
+                {navItems.map((item) => {
+                  const isActive = activeSection === item.id && item.type === 'section';
+                  
+                  return (
+                    <motion.li
+                      key={item.id}
+                      variants={{
+                        hidden: { opacity: 0, x: -20 },
+                        visible: { opacity: 1, x: 0 }
+                      }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <motion.a
+                        href={item.type === 'route' ? `/${item.id}` : `#${item.id}`}
+                        className={`block px-4 py-3 text-lg font-medium rounded-lg transition-all ${
+                          isActive
+                            ? 'text-cyan-300 bg-cyan-500/10'
+                            : 'text-gray-300 hover:text-white hover:bg-gray-800/50'
+                        }`}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleNavigation(item);
+                        }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <div className="flex items-center">
+                          <span>{item.label}</span>
+                          {isActive && (
+                            <motion.span
+                              className="ml-2 w-2 h-2 bg-cyan-400 rounded-full"
+                              initial={{ scale: 0 }}
+                              animate={{ scale: 1 }}
+                              transition={{ type: "spring", bounce: 0.5 }}
+                            />
+                          )}
+                        </div>
+                      </motion.a>
+                    </motion.li>
+                  );
+                })}
+              </motion.ul>
+
+              {/* Close button for mobile */}
+              <motion.button
+                className="absolute top-5 right-5 p-2 text-gray-400 hover:text-white"
+                onClick={() => setMobileMenuOpen(false)}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </motion.button>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
+
+      {/* Navbar border effect */}
+      {scrolled && (
+        <motion.div
+          className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent"
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        />
+      )}
     </motion.nav>
   );
 };

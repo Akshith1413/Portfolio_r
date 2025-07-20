@@ -297,7 +297,7 @@ const Testimonials = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
+    <section id="testimonials" className="relative min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
       <section className="relative py-20 px-4 overflow-hidden">
         {/* Floating decorative bubbles */}
         {[...Array(6)].map((_, i) => (
@@ -467,7 +467,7 @@ const Testimonials = () => {
           </motion.div>
         </div>
       </section>
-    </div>
+    </section>
   );
 };
 
