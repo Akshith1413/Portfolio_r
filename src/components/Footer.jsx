@@ -1,4 +1,3 @@
-// src/components/Footer.jsx
 import { motion } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from 'react-icons/fa';
 import { SiCodepen } from 'react-icons/si';
@@ -14,7 +13,7 @@ const Footer = () => {
 
   return (
     <footer className="relative bg-gray-900/80 border-t border-gray-800 overflow-hidden">
-      {/* Animated background elements */}
+      
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 left-0 w-full h-full bg-grid-pattern opacity-10" />
         <div className="absolute top-0 left-0 w-full h-full bg-radial-gradient opacity-30" />
@@ -22,7 +21,7 @@ const Footer = () => {
 
       <div className="container mx-auto px-6 py-16 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
-          {/* About section */}
+         
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -46,7 +45,7 @@ const Footer = () => {
             </motion.a>
           </motion.div>
 
-          {/* Quick links */}
+         
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -72,7 +71,7 @@ const Footer = () => {
             </ul>
           </motion.div>
 
-          {/* Social links */}
+          
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -98,7 +97,7 @@ const Footer = () => {
           </motion.div>
         </div>
 
-        {/* Copyright */}
+        
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}

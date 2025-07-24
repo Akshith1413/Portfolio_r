@@ -15,7 +15,7 @@ const Contact = () => {
   const [submitStatus, setSubmitStatus] = useState(null);
   const [activeField, setActiveField] = useState(null);
 
-  // Particle animation for background
+  
   useEffect(() => {
     if (!canvasRef.current) return;
 
@@ -24,7 +24,6 @@ const Contact = () => {
     let particles = [];
     let animationId;
 
-    // Set canvas size
     const resizeCanvas = () => {
       canvas.width = canvas.offsetWidth;
       canvas.height = canvas.offsetHeight;
@@ -33,7 +32,7 @@ const Contact = () => {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // Particle class
+    
     class Particle {
       constructor() {
         this.x = Math.random() * canvas.width;
@@ -62,7 +61,7 @@ const Contact = () => {
       }
     }
 
-    // Create particles
+    
     const initParticles = () => {
       particles = [];
       const particleCount = Math.floor((canvas.width * canvas.height) / 10000) || 20;
@@ -71,11 +70,11 @@ const Contact = () => {
       }
     };
 
-    // Animation loop
+    
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      // Draw connecting lines
+    
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
@@ -94,7 +93,7 @@ const Contact = () => {
         }
       }
       
-      // Update and draw particles
+      
       particles.forEach(particle => {
         particle.update();
         particle.draw();
@@ -132,7 +131,7 @@ const Contact = () => {
     setIsSubmitting(true);
     
     try {
-      // Simulate API call
+      
       await new Promise(resolve => setTimeout(resolve, 2000));
       
       setSubmitStatus('success');
@@ -146,7 +145,7 @@ const Contact = () => {
     }
   };
 
-  // Generate random confetti
+ 
   const generateConfetti = () => {
     const colors = ['#00FFFF', '#0088FF', '#00FF88', '#FF00FF', '#FFFF00'];
     const confetti = [];
@@ -186,13 +185,13 @@ const Contact = () => {
       className="relative py-20 px-4 overflow-hidden bg-gradient-to-br from-gray-900 to-gray-800 min-h-screen"
       id="contact"
     >
-      {/* Animated particle background */}
+      
       <canvas 
         ref={canvasRef} 
         className="absolute inset-0 w-full h-full pointer-events-none"
       />
       
-      {/* Floating decorative elements */}
+      
       <motion.div 
         className="absolute top-20 left-10 w-16 h-16 rounded-full bg-cyan-400/20 blur-xl"
         animate={{
@@ -256,7 +255,7 @@ const Contact = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          {/* Interactive background effect */}
+          
           <div className="absolute inset-0 overflow-hidden opacity-20 pointer-events-none">
             <AnimatePresence>
               {activeField === 'name' && (

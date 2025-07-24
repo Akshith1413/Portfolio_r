@@ -2,7 +2,6 @@ import { useRef, useEffect, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
-// 3D Particle Field (unchanged)
 const ParticleField = ({ count = 1500 }) => {
   const particlesRef = useRef();
   const particlesGeometry = useRef(new THREE.BufferGeometry());
@@ -40,7 +39,6 @@ const ParticleField = ({ count = 1500 }) => {
   );
 };
 
-// Floating 3D Shapes (unchanged)
 const FloatingShapes = () => {
   const shapesRef = useRef([]);
 
@@ -115,7 +113,6 @@ const About = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [activeTab, setActiveTab] = useState('education');
 
-  // Check for mobile/small screens
   useEffect(() => {
     const checkIfMobile = () => {
       setIsMobile(window.innerWidth < 1024);
@@ -127,7 +124,6 @@ const About = () => {
     return () => window.removeEventListener('resize', checkIfMobile);
   }, []);
 
-  // Intersection Observer
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -145,7 +141,6 @@ const About = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Mouse move effect
   useEffect(() => {
     const handleMouseMove = (e) => {
       setMousePos({
@@ -236,7 +231,6 @@ const About = () => {
         backgroundColor: '#0f172a'
       }}
     >
-      {/* 3D Background */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <Canvas camera={{ position: [0, 0, 4], fov: 55 }}>
           <ambientLight intensity={0.9} />
@@ -247,10 +241,9 @@ const About = () => {
         </Canvas>
       </div>
 
-      {/* Content Container */}
       <div className="max-w-7xl mx-auto relative z-10 w-full">
         <div className={`flex ${isMobile ? 'flex-col items-center' : 'flex-row items-center'} gap-8 lg:gap-20`}>
-          {/* Profile Image */}
+          
           <div 
             ref={imageContainerRef}
             className={`${isMobile ? 'w-64 h-64 mb-12' : 'w-80 h-80'} rounded-2xl overflow-hidden transition-all duration-700 ease-out`}
@@ -274,11 +267,11 @@ const About = () => {
                   transitionDelay: '0.4s'
                 }}
               >
-                {/* Profile Image Placeholder */}
+                
                 <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
                   <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center">
                     <img 
-                      src="/profile.jpg" 
+                      src="/src/assets/hi.png" 
                       alt="Ravula Akshith Profile"
                       className="absolute inset-0 w-full h-full object-cover"
                       style={{
@@ -293,7 +286,6 @@ const About = () => {
             </div>
           </div>
 
-          {/* Content */}
           <div 
             ref={contentRef} 
             className={`${isMobile ? 'w-full max-w-md' : 'w-[760px]'} space-y-6 p-6 md:p-8 rounded-2xl transition-all duration-700 ease-out`}
@@ -331,7 +323,6 @@ const About = () => {
               I'm a passionate Full Stack Developer and UI/UX Engineer with a knack for creating immersive digital experiences. My journey in technology combines technical expertise with creative problem-solving, allowing me to build solutions that are both functional and visually stunning. When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects, or capturing moments through my lens.
             </p>
 
-            {/* Interactive Tabs */}
             <div className="mt-8">
               <div className="flex space-x-2 mb-6">
                 {['education', 'experience', 'hobbies'].map((tab) => (

@@ -1,4 +1,3 @@
-// src/components/ScrollProgress.jsx
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 

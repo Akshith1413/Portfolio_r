@@ -6,10 +6,8 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Torus, Sphere, RoundedBox, Cone, Ring, TorusKnot } from '@react-three/drei';
 import * as THREE from 'three';
 
-// Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
-// 3D Floating Shapes Component
 const FloatingShapes = () => {
   const torusRef = useRef();
   const sphereRef = useRef();
@@ -27,9 +25,7 @@ const FloatingShapes = () => {
     knot: { x: 8, y: -3, z: -12 }
   });
 
-  // Initialize shape positions
   useEffect(() => {
-    // Animate shapes from their initial positions to final positions
     gsap.to(torusRef.current.position, {
       x: -4,
       duration: 2,
@@ -70,7 +66,6 @@ const FloatingShapes = () => {
   useFrame(({ clock }) => {
     const time = clock.getElapsedTime();
     
-    // Animate shapes
     if (torusRef.current) {
       torusRef.current.rotation.x = time * 0.2;
       torusRef.current.rotation.y = time * 0.3;
@@ -139,7 +134,6 @@ const FloatingShapes = () => {
 
   return (
     <>
-      {/* Floating Torus (3D Ring) */}
       <Torus
         ref={torusRef}
         args={[1.2, 0.4, 16, 32]}
@@ -156,7 +150,6 @@ const FloatingShapes = () => {
         />
       </Torus>
 
-      {/* Floating Sphere */}
       <Sphere
         ref={sphereRef}
         args={[1.5, 32, 32]}
@@ -173,7 +166,6 @@ const FloatingShapes = () => {
         />
       </Sphere>
 
-      {/* Floating Rounded Box */}
       <RoundedBox
         ref={boxRef}
         args={[2, 2, 2]}
@@ -191,7 +183,6 @@ const FloatingShapes = () => {
         />
       </RoundedBox>
 
-      {/* Floating Cone */}
       <Cone
         ref={coneRef}
         args={[1, 2, 32]}
@@ -207,7 +198,6 @@ const FloatingShapes = () => {
         />
       </Cone>
 
-      {/* Floating Ring */}
       <Ring
         ref={ringRef}
         args={[1, 1.5, 32]}
@@ -223,7 +213,6 @@ const FloatingShapes = () => {
         />
       </Ring>
 
-      {/* Floating Torus Knot */}
       <TorusKnot
         ref={knotRef}
         args={[1, 0.4, 128, 32]}
@@ -241,7 +230,6 @@ const FloatingShapes = () => {
   );
 };
 
-// Animated Text Component
 const AnimatedText = ({ text, delay = 0 }) => {
   const letters = Array.from(text);
   
@@ -290,7 +278,6 @@ const AnimatedText = ({ text, delay = 0 }) => {
   );
 };
 
-// Skill Tag Component
 const SkillTag = ({ children }) => {
   const [isHovered, setIsHovered] = useState(false);
   
@@ -317,7 +304,6 @@ const SkillTag = ({ children }) => {
   );
 };
 
-// Hero Component
 const Hero = () => {
   const heroRef = useRef();
   const titleRef = useRef();
@@ -332,7 +318,6 @@ const Hero = () => {
     "UI/UX", "C/C++", "Java", "Python"
   ];
 
-  // Handle mouse movement for parallax effect
   useEffect(() => {
     const handleMouseMove = (e) => {
       setMousePos({
@@ -344,7 +329,6 @@ const Hero = () => {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  // Word rotation effect
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentWord((prev) => (prev + 1) % words.length);
@@ -352,9 +336,7 @@ const Hero = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // GSAP Animations
   useEffect(() => {
-    // Title animation
     gsap.from(titleRef.current, {
       opacity: 0,
       y: 50,
@@ -362,7 +344,6 @@ const Hero = () => {
       ease: "power3.out",
     });
 
-    // Subtitle animation
     gsap.from(subtitleRef.current, {
       opacity: 0,
       y: 30,
@@ -371,7 +352,6 @@ const Hero = () => {
       ease: "elastic.out(1, 0.5)",
     });
 
-    // Scroll-triggered animations
     gsap.to(heroRef.current, {
       scrollTrigger: {
         trigger: heroRef.current,
@@ -390,7 +370,6 @@ const Hero = () => {
       className="relative h-screen w-full overflow-hidden bg-gradient-to-br from-gray-900 via-purple-900 to-violet-800"
       id="home"
     >
-      {/* 3D Canvas */}
       <div className="absolute inset-0 z-0">
         <Canvas camera={{ position: [0, 0, 10], fov: 45 }}>
           <ambientLight intensity={0.5} />
@@ -401,9 +380,8 @@ const Hero = () => {
         </Canvas>
       </div>
 
-      {/* Content */}
       <div className="relative z-10 h-full flex flex-col items-center justify-center px-4 text-center">
-        {/* Hello I'm text */}
+        
         <motion.div 
           className="text-2xl md:text-3xl font-light text-gray-300 mb-4"
           initial={{ opacity: 0, y: 20 }}
@@ -413,7 +391,6 @@ const Hero = () => {
           <AnimatedText text="Hello, I'm" delay={0.2} />
         </motion.div>
 
-        {/* Main Name */}
         <h1 
           ref={titleRef}
           className="text-6xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-500 mb-2"
@@ -424,7 +401,6 @@ const Hero = () => {
           Ravula Akshith
         </h1>
 
-        {/* Rotating Word - Increased height to prevent cutting */}
         <div className="h-20 md:h-24 overflow-hidden relative mb-6 flex items-center justify-center">
           <AnimatePresence mode="wait">
             <motion.div
@@ -441,7 +417,6 @@ const Hero = () => {
           </AnimatePresence>
         </div>
 
-        {/* Subtitle */}
         <motion.p
           ref={subtitleRef}
           className="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto mb-8"
@@ -452,7 +427,6 @@ const Hero = () => {
           Crafting digital experiences that blend innovation with functionality
         </motion.p>
 
-        {/* Skills Tags */}
         <motion.div 
           className="flex flex-wrap justify-center gap-3 max-w-2xl mx-auto mb-8"
           initial={{ opacity: 0 }}
@@ -464,7 +438,6 @@ const Hero = () => {
           ))}
         </motion.div>
 
-        {/* Hire Me Button */}
         <motion.a
           href="#contact"
           className="relative px-8 py-3 rounded-full font-medium overflow-hidden group"
@@ -481,7 +454,6 @@ const Hero = () => {
           </span>
         </motion.a>
 
-        {/* Animated Scroll Indicator */}
         <motion.div 
           className="absolute bottom-5 left-1/2 transform -translate-x-1/2"
           animate={{ y: [0, 15, 0] }}

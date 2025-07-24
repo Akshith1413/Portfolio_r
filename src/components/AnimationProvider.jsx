@@ -1,4 +1,3 @@
-// src/components/AnimationProvider.jsx
 import React, { createContext, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -12,7 +11,7 @@ export const AnimationProvider = ({ children }) => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Default animations can go here
+      
     }, containerRef);
 
     return () => ctx.revert();

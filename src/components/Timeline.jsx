@@ -27,17 +27,15 @@ const TimelineItem = ({ year, title, description, company, isLast, index }) => {
       ref={itemRef}
       style={{ animationDelay: `${index * 0.2}s` }}
     >
-      {/* Timeline line */}
       <div className={`timeline-line ${isLast ? 'timeline-line-last' : ''}`} />
       
-      {/* Animated dot */}
       <div className="timeline-dot-container">
         <div className="timeline-dot" />
         <div className="timeline-dot-hover-effect" />
       </div>
       
       <div className="timeline-content">
-        {/* Glow effect */}
+        
         <div className="timeline-content-glow" />
         
         <div className="timeline-content-inner">
@@ -58,21 +56,21 @@ const TimelineItem = ({ year, title, description, company, isLast, index }) => {
 const Timeline = () => {
   const timelineData = [
     {
-      year: '2023 - Present',
-      title: 'Senior Frontend Developer',
-      company: 'FutureTech Innovations',
+      year: '2024 - Present',
+      title: 'App Developer',
+      company: 'Intel Iot Club',
       description: 'Leading the development team in creating immersive web experiences using cutting-edge technologies like React, Three.js, and WebGL. Spearheaded the migration to Next.js, improving SEO and performance by 40%.'
     },
     {
-      year: '2020 - 2023',
-      title: 'Frontend Developer',
-      company: 'Digital Dreams Agency',
+      year: '2023 - 2024',
+      title: 'Web Developer',
+      company: 'Intel Iot Club',
       description: 'Developed interactive web applications with modern JavaScript frameworks. Implemented GSAP animations that increased user engagement by 25%. Collaborated with designers to create pixel-perfect UIs.'
     },
     {
-      year: '2018 - 2020',
-      title: 'UI/UX Designer',
-      company: 'Creative Minds Studio',
+      year: 'May 2024 - July 2024',
+      title: 'Web Development Intern',
+      company: 'Learnflu',
       description: 'Designed user interfaces and interactive prototypes for clients across various industries. Conducted user research and testing that improved conversion rates by an average of 18% across projects.'
     }
   ];
@@ -301,7 +299,7 @@ const Timeline = () => {
         </div>
         
         <div className="timeline-items-wrapper">
-          {/* Decorative elements */}
+          
           <div className="timeline-decorative-circle-1" />
           <div className="timeline-decorative-circle-2" />
           

@@ -8,16 +8,16 @@ import App from './App'
 import './index.css'
 const Resume = React.lazy(() => import('./components/Resume'))
 
-// Register GSAP plugins
+
 gsap.registerPlugin(ScrollTrigger)
 
-// Set GSAP default settings
+
 gsap.defaults({
   ease: 'power3.out',
   duration: 1.2
 })
 
-// Configure default animation preferences
+
 const animationPreferences = {
   reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
   spring: {
@@ -33,7 +33,6 @@ const animationPreferences = {
   }
 }
 
-// Create root and render app
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
@@ -41,7 +40,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         reducedMotion={animationPreferences.reducedMotion ? 'always' : 'never'}
         transition={animationPreferences.spring}
       >
-        {/* Global Context Providers would go here */}
+        
         
         <React.Suspense fallback={<div className="h-screen bg-black text-white">Loading...</div>}>
           <Routes>

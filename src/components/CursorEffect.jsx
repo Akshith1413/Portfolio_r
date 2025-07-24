@@ -1,4 +1,3 @@
-// src/components/CursorEffect.jsx
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 

@@ -1,6 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
 
-// 3D Tech Sphere with floating icons (simplified version)
 const TechSphere = () => {
   const sphereRef = useRef();
   const [rotation, setRotation] = useState(0);
@@ -32,10 +31,8 @@ const TechSphere = () => {
           transformStyle: 'preserve-3d'
         }}
       >
-        {/* Central sphere */}
         <div className="absolute inset-0 border-2 border-cyan-400/20 rounded-full animate-pulse" />
         
-        {/* Floating tech icons */}
         {techIcons.map((tech, i) => {
           const angle = (i / techIcons.length) * Math.PI * 2;
           const radius = 120;
@@ -65,7 +62,6 @@ const TechSphere = () => {
   );
 };
 
-// Helper function to generate key features based on project data
 const getKeyFeatures = (project) => {
   let features = [];
   
@@ -133,7 +129,6 @@ const getKeyFeatures = (project) => {
   return features.slice(0, featureCount);
 };
 
-// Interactive Project Card with 3D tilt effect
 const ProjectCard = ({ project, index }) => {
   const cardRef = useRef();
   const [isFlipped, setIsFlipped] = useState(false);
@@ -174,7 +169,6 @@ const ProjectCard = ({ project, index }) => {
     setMousePosition({ x: 0.5, y: 0.5 });
   };
 
-  // Calculate 3D tilt based on mouse position
   const tiltX = (mousePosition.y - 0.5) * 20;
   const tiltY = -(mousePosition.x - 0.5) * 20;
 
@@ -200,7 +194,6 @@ const ProjectCard = ({ project, index }) => {
           transform: `rotateX(${isHovered ? tiltX : 0}deg) rotateY(${(isHovered ? tiltY : 0) + (isFlipped ? 180 : 0)}deg) translateY(${isHovered ? '-10px' : '0'})`
         }}
       >
-        {/* Front Side */}
         <div 
           className="absolute inset-0 w-full h-full bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl overflow-hidden border border-gray-700 shadow-xl"
           style={{
@@ -265,7 +258,6 @@ const ProjectCard = ({ project, index }) => {
           </div>
         </div>
 
-        {/* Back Side */}
         <div 
           className="absolute inset-0 w-full h-full bg-gray-900 rounded-xl overflow-hidden border border-cyan-400/30 shadow-xl p-6 flex flex-col"
           style={{ 
@@ -324,7 +316,6 @@ const ProjectCard = ({ project, index }) => {
   );
 };
 
-// Interactive category filter
 const CategoryFilter = ({ activeCategory, setActiveCategory }) => {
   const categories = [
     { id: 'all', name: 'All Projects' },
@@ -354,7 +345,6 @@ const CategoryFilter = ({ activeCategory, setActiveCategory }) => {
   );
 };
 
-// Animated background particles
 const AnimatedParticles = () => {
   const [particles, setParticles] = useState([]);
 
@@ -584,10 +574,9 @@ const Projects = () => {
       `}</style>
       
       <div className="relative min-h-screen py-20 px-4 overflow-hidden bg-gray-950">
-        {/* Animated background particles */}
+        
         <AnimatedParticles />
         
-        {/* 3D Tech Sphere Background */}
         <div className="absolute inset-0 z-0 pointer-events-none opacity-20">
           <TechSphere />
         </div>

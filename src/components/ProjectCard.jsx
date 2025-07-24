@@ -1,4 +1,3 @@
-// src/components/ProjectCard.jsx
 import { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -23,7 +22,6 @@ const ProjectCard = ({ title, description, tags, imageUrl, index }) => {
       ease: 'power3.out'
     });
 
-    // 3D tilt effect on hover
     const card = cardRef.current;
     const handleMove = (e) => {
       const x = e.clientX - card.getBoundingClientRect().left;

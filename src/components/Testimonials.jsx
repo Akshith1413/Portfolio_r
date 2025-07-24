@@ -285,7 +285,7 @@ const Testimonials = () => {
     setEmojiReactions(prev => prev.filter(r => r.id !== id));
   };
 
-  // Auto-rotate testimonials
+  
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveTestimonial(prev => 
@@ -299,7 +299,7 @@ const Testimonials = () => {
   return (
     <section id="testimonials" className="relative min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
       <section className="relative py-20 px-4 overflow-hidden">
-        {/* Floating decorative bubbles */}
+        
         {[...Array(6)].map((_, i) => (
           <motion.div 
             key={i}
@@ -321,7 +321,7 @@ const Testimonials = () => {
           />
         ))}
 
-        {/* Emoji reactions */}
+        
         {emojiReactions.map(reaction => (
           <FloatingEmojiReaction
             key={reaction.id}
@@ -351,7 +351,7 @@ const Testimonials = () => {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-            {/* Testimonial cards */}
+            
             <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
               {testimonialsData.map((testimonial, index) => (
                 <TestimonialCard
@@ -363,14 +363,14 @@ const Testimonials = () => {
               ))}
             </div>
 
-            {/* Featured testimonial */}
+            
             <motion.div 
               className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 p-8 rounded-xl h-full relative overflow-hidden"
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
             >
-              {/* Interactive reaction buttons */}
+              
               <div className="absolute top-4 right-4 flex space-x-2">
                 {['👍', '❤️', '🔥', '👏', '🚀'].map(emoji => (
                   <motion.button
@@ -448,7 +448,7 @@ const Testimonials = () => {
             </motion.div>
           </div>
 
-          {/* Interactive "Leave a Review" button */}
+          
           <motion.div 
             className="mt-16 text-center"
             whileHover={{ scale: 1.02 }}

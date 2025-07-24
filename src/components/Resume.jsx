@@ -9,13 +9,13 @@ const Resume = () => {
         fontFamily: "'IBM Plex Mono', monospace",
         fontStyle: 'italic',
         fontWeight: 100,
-        color: '#f3f4f6' // gray-100
+        color: '#f3f4f6' 
       }}
     >
       <div className="flex flex-col lg:flex-row w-full gap-6 md:gap-8">
-        {/* Left Column */}
+        
         <div className="w-full lg:w-1/3 space-y-6 md:space-y-8">
-          {/* Personal Details */}
+          
           <div className="p-4 md:p-6 border-b border-gray-700">
             <div className="flex items-center mb-4 md:mb-6">
               <FaUser className="mr-2" style={{ color: '#06b6d4' }} />
@@ -50,7 +50,7 @@ const Resume = () => {
             </div>
           </div>
           
-          {/* Availability */}
+          
           <div className="p-4 md:p-6 border-b border-gray-700">
             <div className="flex items-center mb-4 md:mb-6">
               <FaBriefcase className="mr-2" style={{ color: '#06b6d4' }} />
@@ -59,7 +59,7 @@ const Resume = () => {
             <p>Ready to join immediately for internships or full-time roles (Remote/Hybrid/On-site)</p>
           </div>
 
-          {/* Key Skills */}
+          
           <div className="p-4 md:p-6 border-b border-gray-700">
             <div className="flex items-center mb-4 md:mb-6">
               <FaCode className="mr-2" style={{ color: '#06b6d4' }} />
@@ -88,7 +88,7 @@ const Resume = () => {
             </div>
           </div>
 
-          {/* Strengths */}
+          
           <div className="p-4 md:p-6 border-b border-gray-700">
             <div className="flex items-center mb-4 md:mb-6">
               <FaStar className="mr-2" style={{ color: '#06b6d4' }} />
@@ -105,7 +105,7 @@ const Resume = () => {
             </div>
           </div>
 
-          {/* Passion */}
+          
           <div className="p-4 md:p-6 border-b border-gray-700">
             <div className="flex items-center mb-4 md:mb-6">
               <FaHeart className="mr-2" style={{ color: '#06b6d4' }} />
@@ -122,7 +122,7 @@ const Resume = () => {
             </div>
           </div>
 
-          {/* Education */}
+          
           <div className="p-4 md:p-6 border-b border-gray-700">
             <div className="flex items-center mb-4 md:mb-6">
               <FaGraduationCap className="mr-2" style={{ color: '#06b6d4' }} />
@@ -144,7 +144,7 @@ const Resume = () => {
             </div>
           </div>
 
-          {/* Certifications */}
+          
           <div className="p-4 md:p-6">
             <div className="flex items-center mb-4 md:mb-6">
               <FaCertificate className="mr-2" style={{ color: '#06b6d4' }} />
@@ -158,9 +158,9 @@ const Resume = () => {
           </div>
         </div>
 
-        {/* Right Column */}
+        
         <div className="w-full lg:w-2/3 space-y-6 md:space-y-8">
-          {/* Biography */}
+          
           <div className="p-4 md:p-6 border-b border-gray-700">
             <div className="flex items-center mb-4 md:mb-6">
               <FaUser className="mr-2" style={{ color: '#06b6d4' }} />
@@ -177,7 +177,7 @@ const Resume = () => {
             </div>
           </div>
           
-          {/* Work Experience */}
+          
           <div className="p-4 md:p-6 border-b border-gray-700">
             <div className="flex items-center mb-4 md:mb-6">
               <FaBriefcase className="mr-2" style={{ color: '#06b6d4' }} />
@@ -185,7 +185,7 @@ const Resume = () => {
             </div>
             
             <div className="space-y-6 md:space-y-8">
-              {/* Experience 1 */}
+              
               <div>
                 <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
                   <h3 className="text-lg md:text-xl" style={{ color: '#06b6d4' }}>Intel IoT Club — Full Stack Developer</h3>
@@ -199,7 +199,7 @@ const Resume = () => {
                 </ul>
               </div>
               
-              {/* Experience 2 */}
+              
               <div>
                 <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
                   <h3 className="text-lg md:text-xl" style={{ color: '#06b6d4' }}>Learnflu — Web Development Intern</h3>
@@ -214,7 +214,7 @@ const Resume = () => {
             </div>
           </div>
 
-          {/* Key Achievements */}
+          
           <div className="p-4 md:p-6 border-b border-gray-700">
             <div className="flex items-center mb-4 md:mb-6">
               <FaTrophy className="mr-2" style={{ color: '#06b6d4' }} />
@@ -227,7 +227,7 @@ const Resume = () => {
             </div>
           </div>
 
-          {/* Projects */}
+          
           <div className="p-4 md:p-6">
             <div className="flex items-center mb-4 md:mb-6">
               <FaProjectDiagram className="mr-2" style={{ color: '#06b6d4' }} />
@@ -235,7 +235,7 @@ const Resume = () => {
             </div>
             
             <div className="space-y-6 md:space-y-8">
-              {/* Project 1 */}
+             
               <div>
                 <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
                   <h3 className="text-lg md:text-xl" style={{ color: '#06b6d4' }}>aSafetyGuide.com — Full Stack Developer</h3>
@@ -248,7 +248,7 @@ const Resume = () => {
                 </ul>
               </div>
               
-              {/* Project 2 */}
+              
               <div>
                 <h3 className="text-lg md:text-xl mb-2" style={{ color: '#06b6d4' }}>DevConnect – Developer Portfolio & Networking Platform</h3>
                 <p className="font-bold mb-1" style={{ color: '#06b6d4' }}>What it does:</p>
@@ -267,7 +267,7 @@ const Resume = () => {
                 <p>Employers love to see devs building tools for other devs. This shows you can think product-wise and build scalable systems.</p>
               </div>
               
-              {/* Project 3 */}
+             
               <div>
                 <h3 className="text-lg md:text-xl mb-2" style={{ color: '#06b6d4' }}>TaskNest – Team Task & Productivity Manager</h3>
                 <p className="font-bold mb-1" style={{ color: '#06b6d4' }}>What it does:</p>
@@ -285,7 +285,7 @@ const Resume = () => {
                 <p>Demonstrates frontend interactivity, state management, back-end logic, and real-time communication—all in one.</p>
               </div>
 
-              {/* Project 4 */}
+             
               <div>
                 <h3 className="text-lg md:text-xl mb-2" style={{ color: '#06b6d4' }}>QuickShop – E-commerce Web App</h3>
                 <p className="font-bold mb-1" style={{ color: '#06b6d4' }}>What it does:</p>
@@ -303,7 +303,7 @@ const Resume = () => {
                 <p>Shows full-stack mastery: routing, payment gateway integration, product management—ideal for startups & SaaS jobs.</p>
               </div>
 
-              {/* Project 5 */}
+             
               <div>
                 <h3 className="text-lg md:text-xl mb-2" style={{ color: '#06b6d4' }}>HealthTrackr – Personal Health Dashboard</h3>
                 <p className="font-bold mb-1" style={{ color: '#06b6d4' }}>What it does:</p>
@@ -325,7 +325,7 @@ const Resume = () => {
         </div>
       </div>
 
-      {/* Footer */}
+      
       <div className="w-full mt-6 md:mt-8 p-4 md:p-6 border-t border-gray-700 flex flex-col sm:flex-row justify-between items-center gap-4">
         <div className="flex items-center gap-4">
           <a href="https://github.com/Akshith1413" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors">
