@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
   const sectionRef = useRef();
@@ -15,7 +16,11 @@ const Contact = () => {
   const [submitStatus, setSubmitStatus] = useState(null);
   const [activeField, setActiveField] = useState(null);
 
-  
+  // Initialize EmailJS
+  useEffect(() => {
+    emailjs.init('hOyNrSsUCcPRD0oqf');
+  }, []);
+
   useEffect(() => {
     if (!canvasRef.current) return;
 
@@ -32,7 +37,6 @@ const Contact = () => {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    
     class Particle {
       constructor() {
         this.x = Math.random() * canvas.width;
@@ -61,7 +65,6 @@ const Contact = () => {
       }
     }
 
-    
     const initParticles = () => {
       particles = [];
       const particleCount = Math.floor((canvas.width * canvas.height) / 10000) || 20;
@@ -70,11 +73,9 @@ const Contact = () => {
       }
     };
 
-    
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-    
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
@@ -92,7 +93,6 @@ const Contact = () => {
           }
         }
       }
-      
       
       particles.forEach(particle => {
         particle.update();
@@ -127,25 +127,26 @@ const Contact = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+  e.preventDefault();
+  setIsSubmitting(true);
+  
+  try {
+    await emailjs.sendForm(
+      'service_4xnuf0a', // Your actual service ID
+      'template_yf4jb5w', // Your actual template ID
+      e.target, // The form DOM element
+      'hOyNrSsUCcPRD0oqf' // Your actual public key
+    );
     
-    try {
-      
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      setSubmitStatus('success');
-      setFormData({ name: '', email: '', message: '' });
-    } catch (error) {
-      setSubmitStatus('error');
-      console.error('Submission error:', error);
-    } finally {
-      setIsSubmitting(false);
-      setTimeout(() => setSubmitStatus(null), 5000);
-    }
-  };
-
- 
+    setSubmitStatus('success');
+    setFormData({ name: '', email: '', message: '' });
+  } catch (error) {
+    console.error('Email sending error:', error);
+    setSubmitStatus('error');
+  } finally {
+    setIsSubmitting(false);
+  }
+};
   const generateConfetti = () => {
     const colors = ['#00FFFF', '#0088FF', '#00FF88', '#FF00FF', '#FFFF00'];
     const confetti = [];
@@ -185,12 +186,10 @@ const Contact = () => {
       className="relative py-20 px-4 overflow-hidden bg-gradient-to-br from-gray-900 to-gray-800 min-h-screen"
       id="contact"
     >
-      
       <canvas 
         ref={canvasRef} 
         className="absolute inset-0 w-full h-full pointer-events-none"
       />
-      
       
       <motion.div 
         className="absolute top-20 left-10 w-16 h-16 rounded-full bg-cyan-400/20 blur-xl"
@@ -255,7 +254,6 @@ const Contact = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          
           <div className="absolute inset-0 overflow-hidden opacity-20 pointer-events-none">
             <AnimatePresence>
               {activeField === 'name' && (
