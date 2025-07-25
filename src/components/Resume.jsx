@@ -169,11 +169,12 @@ const Resume = () => {
             
             <div className="space-y-3 md:space-y-4">
               <p>
-                <span className="font-bold" style={{ color: '#06b6d4' }}>Hello!</span> I'm Emma Lesley, a creative illustrator and designer dedicated to creating imaginable worlds for my clients and their customers. I have a passion for bringing stories to life through my art. I have been drawing and painting since I was a child, and my love for art has only grown stronger over the years.
+                <span className="font-bold" style={{ color: '#06b6d4' }}>Hello!</span> I'm Ravula Akshith, a passionate full stack developer dedicated to building seamless, user-centric digital experiences from the ground up. I specialize in crafting responsive front-end interfaces and robust back-end systems that bring ideas to life through code.</p>
+<p>
+My journey in development began with curiosity and a drive to understand how things work behind the screen. Over the years, that curiosity evolved into a deep commitment to creating efficient, scalable, and intuitive web applications. Whether it's designing a sleek UI or engineering a complex API, I love the challenge of turning problems into elegant technical solutions.
               </p>
               <p>
-                When I'm not immersed in the world of illustration, you can find me exploring new art, sketching ideas, or collaborating with clients to make their visions a reality.
-              </p>
+              When I'm not coding, you'll find me exploring the latest in tech, refining my skills, or collaborating with clients and teams to transform ideas into functional, engaging products.</p>
             </div>
           </div>
           
@@ -342,15 +343,19 @@ const Resume = () => {
         <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-6">
           <span className="text-base md:text-lg">Ravula Akshith</span>
           <button 
-            className="flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-2 rounded border border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-gray-900 transition-colors text-sm sm:text-base"
-            onClick={() => {
-              // Add download resume functionality here
-              console.log('Download resume clicked');
-            }}
-          >
-            <FaFileDownload />
-            Download Resume
-          </button>
+  className="flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-2 rounded border border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-gray-900 transition-colors text-sm sm:text-base"
+  onClick={() => {
+    const link = document.createElement('a');
+    link.href = '/certs/Ravula Akshith.pdf';
+    link.download = 'Ravula_Akshith_Resume.pdf'; // The filename you want for the downloaded file
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }}
+>
+  <FaFileDownload />
+  Download Resume
+</button>
         </div>
       </div>
     </div>
